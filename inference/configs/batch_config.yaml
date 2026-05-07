@@ -1,0 +1,30 @@
+# path config
+data_dir: "../dataset/data"
+out_dir: "../output/trainset" # save the proposal results
+cache_dir: "../output/cache" # save the caption (patch analyses) and summary (panorama analysis) results
+annotation_path: "../annotations/OpenView_dataset.csv"
+
+# patch config
+patch_cols: 4
+patch_rows: 3
+
+# agent config
+agent_config:
+  model_id: "Qwen/Qwen2.5-VL-72B-Instruct"
+  max_model_len: 8192
+  tensor_parallel_size: 4 # modify this according to the number of GPUs you have
+  gpu_memory_utilization: 0.90 # modify this according to the memory of your GPUs
+  enforce_eager: False # set True if GPU memory is tight
+
+  # temperature, top_p, max_new_tokens, repetition_penalty
+  caption_cfg: [0.4, 0.8, 1024, 1.05]
+  summarize_cfg: [0.4, 0.8, 1024, 1.05]
+  propose_cfg: [0.8, 0.95, 3072, 1.05]
+  correct_cfg: [0.4, 0.8, 3328, 1.05]
+
+# proposal config
+proposals_per_generator: 3 
+question_types: ["contextual", "directional"]
+
+# batch config
+batch_size: 24 # modify this according to the number of GPUs you have
